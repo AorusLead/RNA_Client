@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IService1_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256>
+                </sp:Basic256>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict>
+                </sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Net" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Net.Sockets" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/SERVICERNA" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Diagnostics" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.ComponentModel" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Security" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Text" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Globalization" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.IO" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_AddClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddClient" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CanSendScreen_InputMessage">
+    <wsdl:part name="parameters" element="tns:CanSendScreen" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CanSendScreen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CanSendScreenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClient" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetClients_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClients" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetClients_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetActiveClients_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveClients" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetActiveClients_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClient" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddUsingClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUsingClient" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddUsingClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUsingClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteUsingClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUsingClient" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteUsingClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUsingClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetScreenShot_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetScreenShot" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetScreenShot_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetScreenShotResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendMessage_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Reboot_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Reboot" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ShutDown_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ShutDown" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Disconnect_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Disconnect" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetProcesses_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetProcesses" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetProcesses_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetProcessesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CloseProcess_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:CloseProcess" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDrives_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetDrives" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDrives_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetDrivesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetFiles_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetFiles" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetFiles_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDirectories_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetDirectories" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDirectories_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetDirectoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_RemoveFile_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFile" />
+  </wsdl:message>
+  <wsdl:message name="IService1_RemoveFile_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FindFiles_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:FindFiles" />
+  </wsdl:message>
+  <wsdl:message name="IService1_FindFiles_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:FindFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TakeFile_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:TakeFile" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TakeFile_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:TakeFileResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="AddClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddClient" message="tns:IService1_AddClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddClientResponse" message="tns:IService1_AddClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CanSendScreen">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CanSendScreen" message="tns:IService1_CanSendScreen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CanSendScreenResponse" message="tns:IService1_CanSendScreen_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteClient" message="tns:IService1_DeleteClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteClientResponse" message="tns:IService1_DeleteClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClients">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetClients" message="tns:IService1_GetClients_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetClientsResponse" message="tns:IService1_GetClients_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveClients">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetActiveClients" message="tns:IService1_GetActiveClients_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetActiveClientsResponse" message="tns:IService1_GetActiveClients_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetClient" message="tns:IService1_GetClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetClientResponse" message="tns:IService1_GetClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUsingClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddUsingClient" message="tns:IService1_AddUsingClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddUsingClientResponse" message="tns:IService1_AddUsingClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsingClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteUsingClient" message="tns:IService1_DeleteUsingClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteUsingClientResponse" message="tns:IService1_DeleteUsingClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetScreenShot">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetScreenShot" message="tns:IService1_GetScreenShot_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetScreenShotResponse" message="tns:IService1_GetScreenShot_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SendMessage" message="tns:IService1_SendMessage_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Reboot">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/Reboot" message="tns:IService1_Reboot_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ShutDown">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ShutDown" message="tns:IService1_ShutDown_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Disconnect">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/Disconnect" message="tns:IService1_Disconnect_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetProcesses" message="tns:IService1_GetProcesses_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetProcessesResponse" message="tns:IService1_GetProcesses_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseProcess">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CloseProcess" message="tns:IService1_CloseProcess_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDrives">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDrives" message="tns:IService1_GetDrives_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetDrivesResponse" message="tns:IService1_GetDrives_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFiles">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetFiles" message="tns:IService1_GetFiles_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetFilesResponse" message="tns:IService1_GetFiles_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDirectories">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDirectories" message="tns:IService1_GetDirectories_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetDirectoriesResponse" message="tns:IService1_GetDirectories_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFile">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/RemoveFile" message="tns:IService1_RemoveFile_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/RemoveFileResponse" message="tns:IService1_RemoveFile_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindFiles">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/FindFiles" message="tns:IService1_FindFiles_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/FindFilesResponse" message="tns:IService1_FindFiles_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TakeFile">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/TakeFile" message="tns:IService1_TakeFile_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/TakeFileResponse" message="tns:IService1_TakeFile_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IService1" type="tns:IService1">
+    <wsp:PolicyReference URI="#NetTcpBinding_IService1_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="AddClient">
+      <soap12:operation soapAction="http://tempuri.org/IService1/AddClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanSendScreen">
+      <soap12:operation soapAction="http://tempuri.org/IService1/CanSendScreen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClient">
+      <soap12:operation soapAction="http://tempuri.org/IService1/DeleteClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClients">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveClients">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetActiveClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClient">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUsingClient">
+      <soap12:operation soapAction="http://tempuri.org/IService1/AddUsingClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsingClient">
+      <soap12:operation soapAction="http://tempuri.org/IService1/DeleteUsingClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetScreenShot">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetScreenShot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="http://tempuri.org/IService1/SendMessage" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Reboot">
+      <soap12:operation soapAction="http://tempuri.org/IService1/Reboot" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShutDown">
+      <soap12:operation soapAction="http://tempuri.org/IService1/ShutDown" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Disconnect">
+      <soap12:operation soapAction="http://tempuri.org/IService1/Disconnect" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetProcesses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CloseProcess">
+      <soap12:operation soapAction="http://tempuri.org/IService1/CloseProcess" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDrives">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetDrives" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFiles">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDirectories">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetDirectories" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFile">
+      <soap12:operation soapAction="http://tempuri.org/IService1/RemoveFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindFiles">
+      <soap12:operation soapAction="http://tempuri.org/IService1/FindFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TakeFile">
+      <soap12:operation soapAction="http://tempuri.org/IService1/TakeFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="NetTcpBinding_IService1" binding="tns:NetTcpBinding_IService1">
+      <soap12:address location="net.tcp://localhost:8933/Service" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8933/Service</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Dns>localhost</Dns>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
