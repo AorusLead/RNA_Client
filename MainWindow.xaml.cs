@@ -275,7 +275,7 @@ namespace RNA_Client
 
 		public void UpdateClients(Dictionary<string, Client> UsingClients, Dictionary<string, Client> Clients)
 		{
-
+			//
 		}
 
 		public string Str()
