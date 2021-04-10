@@ -277,5 +277,10 @@ namespace RNA_Client
 		{
 
 		}
+
+		public string Str()
+		{
+			return "hello";
+		}
 	}
 }

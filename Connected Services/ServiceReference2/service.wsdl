@@ -41,10 +41,10 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Net.Sockets" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/RNA_Rebuild" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.IO" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Diagnostics" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.ComponentModel" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Security" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Text" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/System.Globalization" />
@@ -164,6 +164,9 @@
   <wsdl:message name="IService1_GetClientDrives_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetClientDrivesResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetClientDrives_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/System" name="detail" element="q1:Exception" />
+  </wsdl:message>
   <wsdl:message name="IService1_GetClientDirectories_InputMessage">
     <wsdl:part name="parameters" element="tns:GetClientDirectories" />
   </wsdl:message>
@@ -175,6 +178,12 @@
   </wsdl:message>
   <wsdl:message name="IService1_GetClientFiles_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetClientFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetClientProcesses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientProcesses" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetClientProcesses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientProcessesResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_GetScreenshot_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:GetScreenshot" />
@@ -247,6 +256,12 @@
   </wsdl:message>
   <wsdl:message name="IService1_UpdateClients_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:UpdateClients" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Str_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Str" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Str_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:StrResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="AddClient">
@@ -324,6 +339,7 @@
     <wsdl:operation name="GetClientDrives">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetClientDrives" message="tns:IService1_GetClientDrives_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetClientDrivesResponse" message="tns:IService1_GetClientDrives_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IService1/GetClientDrivesExceptionFault" name="ExceptionFault" message="tns:IService1_GetClientDrives_ExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetClientDirectories">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetClientDirectories" message="tns:IService1_GetClientDirectories_InputMessage" />
@@ -332,6 +348,10 @@
     <wsdl:operation name="GetClientFiles">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetClientFiles" message="tns:IService1_GetClientFiles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetClientFilesResponse" message="tns:IService1_GetClientFiles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientProcesses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetClientProcesses" message="tns:IService1_GetClientProcesses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetClientProcessesResponse" message="tns:IService1_GetClientProcesses_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetScreenshot">
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetScreenshot" message="tns:IService1_GetScreenshot_OutputCallbackMessage" />
@@ -388,6 +408,10 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateClients">
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateClients" message="tns:IService1_UpdateClients_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Str">
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/Str" message="tns:IService1_Str_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/StrResponse" message="tns:IService1_Str_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IService1" type="tns:IService1">
@@ -564,6 +588,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="ExceptionFault">
+        <soap12:fault use="literal" name="ExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetClientDirectories">
       <soap12:operation soapAction="http://tempuri.org/IService1/GetClientDirectories" style="document" />
@@ -576,6 +603,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetClientFiles">
       <soap12:operation soapAction="http://tempuri.org/IService1/GetClientFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientProcesses">
+      <soap12:operation soapAction="http://tempuri.org/IService1/GetClientProcesses" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -699,6 +735,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateClients">
       <soap12:operation soapAction="http://tempuri.org/IService1/UpdateClients" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Str">
+      <soap12:operation soapAction="http://tempuri.org/IService1/Str" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

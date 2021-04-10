@@ -29,10 +29,10 @@
     <MetadataFile FileName="System.Net.Sockets.xsd" MetadataType="Schema" ID="f9b5ee6e-9699-4f2e-a822-efc33d390dc6" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="9b9c859d-f411-480a-b784-c3eca33dadcd" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="RNA_Rebuild.xsd" MetadataType="Schema" ID="3c6be686-4654-4a4b-947d-0a52757742ca" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="ed3e8512-96b3-47aa-9f71-8fad336d6f04" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="System.IO.xsd" MetadataType="Schema" ID="681d31ae-6f80-42e4-89bf-6ddea56b22fb" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="System.Diagnostics.xsd" MetadataType="Schema" ID="7744c08a-a70b-4dd1-95b2-50cca0d46a1a" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="System.ComponentModel.xsd" MetadataType="Schema" ID="745522f1-b440-4ece-8f4a-1450b3c773fc" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
-    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="ed3e8512-96b3-47aa-9f71-8fad336d6f04" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="System.Security.xsd" MetadataType="Schema" ID="437f740a-ce81-4312-9d7f-fa8b6da124b7" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="System.Text.xsd" MetadataType="Schema" ID="82ced60e-5c74-4fab-be5c-8c53d6af2f5b" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
     <MetadataFile FileName="System.Globalization.xsd" MetadataType="Schema" ID="3826599d-85d2-4251-b987-3eadc40412f7" SourceId="1" SourceUrl="net.tcp://localhost:8523/Service/mex" />
