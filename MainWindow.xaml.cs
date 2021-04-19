@@ -20,6 +20,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using RNA_Client.ServiceReference2;
+using System.IO.Compression;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace RNA_Client
 {
@@ -39,8 +42,7 @@ namespace RNA_Client
 		private RNA_Switcher switcher = null;
 		private IService1Callback callback = null;
 		private int Port = 0;
-		
-
+		[Obsolete]
 		public MainWindow()
 		{
 			bool? value = addition.GetValue(@"SettingsSetted") as bool?;
@@ -77,25 +79,33 @@ namespace RNA_Client
 			//}
 			switcher = new RNA_Switcher();
 			Connect();
+			//InitializeComponent();
+			//this.Visibility = Visibility.Collapsed;
+		}
+
+		[Obsolete]
+		private void Join()
+		{
 			if (!client1.AddClient(PCName, System.Net.Dns.GetHostByName(PCName).AddressList[0]))
 			{
 				switch (MessageBox.Show("Рекомендуется сменить имя компьютера, либо же он будет продолжать работу под изменённым именем. Продолжить работу с новым именем ?", "Невозможно занять имя клиента", MessageBoxButton.YesNo))
 				{
 					case MessageBoxResult.Yes:
 						PCName += new Random().Next(1, 10000);
+						Join();
 						break;
 					default:
 						Disconnect();
 						return;
 				}
 			}
-			//InitializeComponent();
-			//this.Visibility = Visibility.Collapsed;
 		}
 
+		[Obsolete]
 		private void Connect()
 		{
 			while (!TryConnect()) ;
+			Join();
 		}
 
 		private bool TryConnect()
@@ -159,32 +169,67 @@ namespace RNA_Client
 			}
 		}
 
-		public SuperFile GetScreenshot()
+		public SuperImage GetScreenshot()
 		{
-			return Task.Run(() => GettingScreenshot()).Result;
+			return GettingScreenshot();
 		}
 
-		public SuperFile GettingScreenshot()
+		public SuperImage GettingScreenshot()
 		{
-			int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
-			int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
-			Bitmap printscreen = new Bitmap(width, height);
-			Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
-			graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
-			string fname = System.IO.Path.GetTempFileName();
-			printscreen.Save(fname);
-			SuperFile sf = new SuperFile
+			int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width; //Ширина
+			int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height; //Высота
+			Bitmap printscreen = new Bitmap(width, height); //Создаю битмапу
+			Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image); //Создаю графику
+			graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size); //Делаю скрин
+			return new SuperImage { Content = Convert(Bitmap2BitmapImage(printscreen)) }; 
+		}
+
+
+
+		private byte[] Convert(BitmapImage bm)
+		{
+			//using (MemoryStream ms = new MemoryStream())
+			//{
+			//	bm.StreamSource.CopyTo(ms);
+			//	//using (DeflateStream ds = new DeflateStream(ms, CompressionMode.Compress))
+			//	//	bm.Save(ds, System.Drawing.Imaging.ImageFormat.Png);
+			//	return ms.ToArray();
+			//}
+
+			JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+			encoder.Frames.Add(BitmapFrame.Create(bm));
+			using (MemoryStream ms = new MemoryStream())
 			{
-				Name = "screen",
-				Content = File.ReadAllBytes(fname)
-			};
-			File.Delete(fname);
-			return sf;
+				encoder.Save(ms);
+				return ms.ToArray();
+			}
+		}
+
+
+		[DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool DeleteObject([In] IntPtr hObject);
+		private BitmapImage Bitmap2BitmapImage(Bitmap bitmap)
+		{
+			using (var memory = new MemoryStream())
+			{
+				bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
+				memory.Position = 0;
+
+				var bitmapImage = new BitmapImage();
+				bitmapImage.BeginInit();
+				bitmapImage.StreamSource = memory;
+				bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+				bitmapImage.EndInit();
+				//bitmapImage.Freeze();
+
+				return bitmapImage;
+			}
 		}
 
 		public void SendMessage(string mes)
 		{
-			Task.Run(() => MessageBox.Show(mes));
+			new Thread(() => MessageBox.Show(mes)).Start();
 		}
 
 		public void Reboot()
@@ -203,16 +248,28 @@ namespace RNA_Client
 			Process.GetCurrentProcess().Kill();
 		}
 
-		public Process[] GetProcesses()
+		public SuperProcess[] GetProcesses()
 		{
-			return Process.GetProcesses();
+			List<SuperProcess> l = new List<SuperProcess>();
+			Process[] Processes = Process.GetProcesses();
+			foreach (var proc in Processes)
+			{
+				Bitmap icon = null;
+				try
+				{
+					icon = GetFileIcon(proc.MainModule.FileName);
+				}
+				catch { }
+				l.Add(new SuperProcess { Icon = icon, Id = proc.Id, Name = proc.ProcessName });
+			}
+			return l.ToArray();
 		}
 
 		public void CloseProcess(int ProcessId)
 		{
 			try
 			{
-				Process.GetProcessById(ProcessId)?.Kill();
+				Process.GetProcessById(ProcessId).Kill();
 			}
 			catch { }
 		}
@@ -225,17 +282,27 @@ namespace RNA_Client
 			return lst.ToArray();
 		}
 
-		public FileInfo[] GetFiles(string path)
+		public SuperFileDirectoryInfo[] GetFiles(string path)
 		{
-			return new DirectoryInfo(path).GetFiles();
+			List<SuperFileDirectoryInfo> list = new List<SuperFileDirectoryInfo>();
+			foreach (FileInfo file in new DirectoryInfo(path).GetFiles()) list.Add(new SuperFileDirectoryInfo { Name = file.Name, FullName = file.FullName, IsFolder = false, HaveSub = false, Icon = GetFileIcon(file.FullName) });
+			return list.ToArray();
 		}
 
-		public DirectoryInfo[] GetDirectories(string path)
+		private Bitmap GetFileIcon(string path)
 		{
-			return new DirectoryInfo(path).GetDirectories();
+			return System.Drawing.Icon.ExtractAssociatedIcon(path).ToBitmap();
 		}
 
-		public bool RemoveFile(string path)
+		public SuperFileDirectoryInfo[] GetDirectories(string path)
+		{
+			List<SuperFileDirectoryInfo> list = new List<SuperFileDirectoryInfo>();
+			foreach (var dir in new DirectoryInfo(path).GetDirectories())
+				list.Add(new SuperFileDirectoryInfo { FullName = dir.FullName, Name = dir.Name, Icon = GetFileIcon(dir.FullName), HaveSub = dir.GetFileSystemInfos().Length > 0 ? true : false, IsFolder = true });
+			return list.ToArray();
+		}
+
+		public void RemoveFile(string path)
 		{
 			try
 			{
@@ -243,9 +310,8 @@ namespace RNA_Client
 					File.Delete(path);
 				else if (System.IO.Directory.Exists(path))
 					Directory.Delete(path, true);
-				return true;
 			}
-			catch { return false; }
+			catch { }
 		}
 
 		public string[] FindFiles(string mask)
@@ -281,6 +347,11 @@ namespace RNA_Client
 		public string Str()
 		{
 			return "hello";
+		}
+
+		public bool Ping()
+		{
+			return true;
 		}
 	}
 }
